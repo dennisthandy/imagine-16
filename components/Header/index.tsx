@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Icon from '@geist-ui/react-icons'
-import { Grid, Link, Avatar, Text } from '@geist-ui/react'
+import { Grid, Link, Avatar, Text, Image } from '@geist-ui/react'
 import NextLink from 'next/link'
 
 export default function Header(): JSX.Element {
@@ -20,6 +20,14 @@ export default function Header(): JSX.Element {
         </NextLink>
       </Grid>
       <Grid>
+        <Link href="https://trakteer.id/dennisthandy/tip" target="_targrt" style={{
+          borderRadius: '.25rem',
+          background: '#991a26',
+          padding: '.5rem 1rem',
+          marginRight: '1rem'
+        }}>
+          <Image src="/navbar-logo-lite-white-beta.png" alt="Trakteer" width={70}/>
+        </Link>
         <Link target="_blank" href="https://github.com/dennisthandy/imagine-16">
           <Icon.Github />
         </Link>
