@@ -77,10 +77,13 @@ class MyDocument extends Document {
             content="Buku Digital Alumni Imagine Squad 2016 Teknik Informatika Universitas Trunojoyo Madura"
           />
           <meta property="og:site_name" content="Imagine 16" />
-          <meta property="og:url" content={process.env.VERCEL_URL} />
+          <meta
+            property="og:url"
+            content={process.env.NEXT_PUBLIC_VERCEL_URL}
+          />
           <meta
             property="og:image"
-            content={`${process.env.VERCEL_URL}/apple-touch-icon.png`}
+            content={`${process.env.NEXT_PUBLIC_VERCEL_URL}/apple-touch-icon.png`}
           />
         </Head>
         <body>

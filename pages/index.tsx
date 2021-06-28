@@ -119,7 +119,7 @@ export default function Home({ data }: Props): JSX.Element {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(process.env.VERCEL_URL + '/api/alumnies')
+  const res = await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + '/api/alumnies')
   const data: Student[] = await res.json()
 
   return {
