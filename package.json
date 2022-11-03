@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.5",
+    "@dicebear/avatars-male-sprites": "^4.10.5",
+    "@dicebear/micah": "^4.10.5",
     "@geist-ui/react": "^2.1.5",
     "@geist-ui/react-icons": "^1.0.1",
     "next": "11.0.1",
