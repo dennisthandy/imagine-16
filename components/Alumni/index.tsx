@@ -1,7 +1,10 @@
-import React from 'react'
-import { Card, User, Badge, Link, Tooltip, Avatar } from '@geist-ui/react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Card, User, Badge, Link, Tooltip, Avatar, Text } from '@geist-ui/react'
 import * as Icon from '@geist-ui/react-icons'
 import { Student } from '../../types'
+import { createAvatar } from '@dicebear/avatars'
+import * as style from '@dicebear/micah'
+import styles from './styles.module.css'
 
 interface Props {
   alumni: Student
@@ -16,30 +19,43 @@ const formatName = (name: string): string => {
 }
 
 export default function Alumni({ alumni }: Props): JSX.Element {
-  const setSocialIcon = (social: string): JSX.Element => {
-    return social === 'facebook' ? (
-      <Icon.Facebook color="blue" />
-    ) : social === 'instagram' ? (
-      <Icon.Instagram color="purple" />
-    ) : social === 'youtube' ? (
-      <Icon.Youtube color="red" />
-    ) : (
-      <Icon.Github />
-    )
+  const [isHover, setIsHover] = useState(false)
+  const isWomen = alumni.gender.toLowerCase() === 'perempuan'
+  const nim = alumni.nim.toString().length
+  const formatNim: Record<number, string> = {
+    1: `00${alumni.nim}`,
+    2: `0${alumni.nim}`,
+    3: alumni.nim.toString()
   }
+  const socialIcon: Record<string, JSX.Element> = {
+    facebook: <Icon.Facebook color="blue" />,
+    instagram: <Icon.Instagram color="purple" />,
+    youtube: <Icon.Youtube color="red" />,
+    github: <Icon.Github />
+  }
+  const dicebearAvatar = createAvatar(style, {
+    seed: 'custom-seed',
+    dataUri: true,
+    hairColor: ['black'],
+    baseColor: ['apricot'],
+    mouth: isHover ? ['surprised'] : ['smile'],
+    hair: isWomen ? ['pixie'] : ['fonze']
+  })
 
   return (
     <Card
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
       hoverable
       style={{
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        borderTop: `3px solid ${
-          alumni.gender.toLowerCase() === 'perempuan' ? 'pink' : 'purple'
-        }`
-      }}>
+        borderTop: `3px solid ${isWomen ? 'pink' : 'purple'}`,
+        position: 'relative'
+      }}
+      className={styles.card}>
       <Card.Content
         style={{
           display: 'flex',
@@ -55,14 +71,27 @@ export default function Alumni({ alumni }: Props): JSX.Element {
             />
           }>
           <User
-            style={{ padding: 0 }}
-            src={alumni.avatar || ''}
+            style={{
+              padding: 0,
+              position: 'relative'
+            }}
+            src={dicebearAvatar || ''}
             text={alumni.name}
             name={formatName(alumni.name)}>
             {alumni.city}
+            <Text
+              className={styles.animateGraduate}
+              style={{
+                fontSize: '1.35rem',
+                position: 'absolute',
+                top: -12,
+                left: 0
+              }}>
+              🎓
+            </Text>
           </User>
         </Tooltip>
-        <Tooltip text="NIM">
+        <Tooltip text={`160411100${formatNim[nim]}`}>
           <Badge>{alumni.nim}</Badge>
         </Tooltip>
       </Card.Content>
@@ -72,7 +101,7 @@ export default function Alumni({ alumni }: Props): JSX.Element {
           {alumni.socials.map((social, index) => {
             return (
               <Link href={social.url} target="_blank" key={index}>
-                {setSocialIcon(social.name.toLowerCase())}
+                {socialIcon[social.name.toLowerCase()]}
               </Link>
             )
           })}
