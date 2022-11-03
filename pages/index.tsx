@@ -120,15 +120,17 @@ export default function Home({ data }: Props): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let protocol = 'http://'
-  if(process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production') {
     protocol = 'https://'
   }
-  const res = await fetch(protocol + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/alumnies')
+  const res = await fetch(
+    protocol + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/alumnies'
+  )
   const data: Student[] = await res.json()
 
   return {
     props: {
-      data
+      data: data || null
     }
   }
 }
