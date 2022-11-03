@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Card, User, Badge, Link, Tooltip, Avatar, Text } from '@geist-ui/react'
 import * as Icon from '@geist-ui/react-icons'
 import { Student } from '../../types'
